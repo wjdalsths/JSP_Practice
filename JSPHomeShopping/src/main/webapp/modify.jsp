@@ -31,7 +31,7 @@
 		Statement stmt = Util.getConnection().createStatement();
 		String sql = "select * from member_tbl_02 where custno = "+ mod_custno;
 		ResultSet rs =  stmt.executeQuery(sql);
-		while(rs.next()){
+		rs.next();
 		custname = rs.getString(2);
 		phone = rs.getString(3);
 		address = rs.getString(4);
@@ -76,7 +76,7 @@
 		</td>
 	</tr>
 	<%
-		}
+		
 	}catch(Exception e){
 		e.printStackTrace();
 	}

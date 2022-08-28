@@ -25,14 +25,25 @@ request.setCharacterEncoding("UTF-8");
 	
 	try{
 		Connection conn = Util.getConnection();
-		Statement stmt = conn.createStatement();
 		String sql = " ";
-		
+		/* Statement stmt = conn.createStatement(); */
+		PreparedStatement pstmt= null;
 		switch(mode){
 		case "insert": 
-			sql = "insert into member_tbl_02 values("+custno+","+"'"+custname+"',"+"'"+phone+"',"+"'"+address+"',"+"TO_DATE('" + joindate + "', 'yyyy-MM-dd'),"+"'"+grade+"',"+"'"+city+"')";
-		stmt.executeUpdate(sql);
-		
+		/* 	sql = "insert into member_tbl_02 values("+custno+","+"'"+custname+"',"+"'"+phone+"',"+"'"+address+"',"+"TO_DATE('" + joindate + "', 'yyyy-MM-dd'),"+"'"+grade+"',"+"'"+city+"')";
+		 */
+			sql = "insert into member_tbl_02 values(?,?,?,?,?,?,?)";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, custno);
+			pstmt.setString(2, custname);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, address);
+			pstmt.setString(5, joindate);
+			pstmt.setString(6, grade);
+			pstmt.setString(7, city);
+
+		 /* stmt.executeUpdate(sql); */
+			pstmt.executeUpdate();		
 	 
 	
 %>
@@ -40,13 +51,23 @@ request.setCharacterEncoding("UTF-8");
 <%
 			break;
 		case "modify":	
-			sql = "update member_tbl_02 set custname ='"+custname+"', phone = '"+phone+"' , address='"+address+"', joindate=to_date('"+joindate+"','yyyy-mm-dd'), grade='"+grade+"', city='"+city+"'"
-			+"where custno ="+custno;
-
-		stmt.executeUpdate(sql);
+			 /* sql = "update member_tbl_02 set custname ='"+custname+"', phone = '"+phone+"' , address='"+address+"', joindate=to_date('"+joindate+"','yyyy-mm-dd'), grade='"+grade+"', city='"+city+"'"
+			+"where custno ="+custno;  */
+			sql = "update member_tbl_02 set custname=?, phone=?, address=?, joindate=?, grade=?, city=? where custno =?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, custname);
+			pstmt.setString(2, phone);
+			pstmt.setString(3, address);
+			pstmt.setString(4, joindate);
+			pstmt.setString(5, grade);
+			pstmt.setString(6, city);
+			pstmt.setString(7, custno);
+			
+		/* stmt.executeUpdate(sql); */
+			pstmt.executeUpdate();		
 
 %>
-<jsp:forward page="modify.jsp" />
+<jsp:forward page="list.jsp" />
 <%
 		break;
 
