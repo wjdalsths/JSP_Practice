@@ -1,0 +1,54 @@
+CREATE TABLE menu_tbl(
+menuno number(6) not null primary key,
+menuname varchar2(50),
+price number(10),
+kcal varchar2(10)
+);
+
+insert into menu_tbl values(10001, '아메리카노', 4500, '4kcal');
+insert into menu_tbl values(10002, '카페 라떼', 5000, '110kcal');
+insert into menu_tbl values(10003, '카페 모카', 5500, '300kcal');
+insert into menu_tbl values(10004, '돌체 라떼', 6000, '230kcal');
+insert into menu_tbl values(10005, '콜드 브루', 4800, '5kcal');
+
+CREATE TABLE order_tbl(
+orderno number(5) not null primary key,
+custno number(5),
+custname varchar2(20),
+menuno number(6),
+amount number(5),
+orderdate date,
+foreign key(menuno) references menu_tbl(menuno)
+);
+
+insert into order_tbl values(1, 101, '유재석', 10001, 3, '20220101');
+insert into order_tbl values(2, 102, '지석진', 10004, 1, '20220101');
+insert into order_tbl values(3, 101, '유재석', 10001, 10, '20220102');
+insert into order_tbl values(4, 103, '하하', 10002, 2, '20220102');
+insert into order_tbl values(5, 103, '하하', 10003, 2, '20220102');
+insert into order_tbl values(6, 103, '하하', 10004, 2, '20220102');
+insert into order_tbl values(7, 104, '김종국', 10001, 10, '20220103');
+insert into order_tbl values(8, 105, '전소민', 10005, 5, '20220103');
+insert into order_tbl values(9, 106, '양세찬', 10004, 5, '20220103');
+insert into order_tbl values(10, 107, '송지효', 10001, 5, '20220103');
+insert into order_tbl values(11, 106, '양세찬', 10004, 3, '20220103');
+
+
+
+
+
+select M.menuno, M.menuname, SUM(amount), SUM(price*amount) 
+from menu_tbl M, order_tbl O 
+where M.menuno = O.menuno 
+group by M.menuno, M.menuname 
+order by M.menuno asc
+
+
+-sales-
+select M.menuno, M.menuname, SUM(O.amount), SUM(price*amount) from menu_tbl M, order_tbl O where M.menuno = O.menuno group by M.menuno, M.menuname order by M.menuno asc;
+
+-menulist-
+select * from menu_tbl;
+
+-orderlist-
+select O.orderno, O.custno, O.custname, M.menuname, O.amount, SUM(price*amount), O.orderdate from menu_tbl M, order_tbl O where M.menuno = O.menuno group by O.orderno, O.custno, O.custname, M.menuname, O.amount, O.orderdate order by O.orderno asc;

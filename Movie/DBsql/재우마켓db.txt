@@ -1,0 +1,53 @@
+CREATE TABLE jeu_member(
+custno number(3) not null,
+custname varchar2(20),
+phone varchar2(13),	
+address varchar2(60),
+gender varchar2(5),
+primary key(custno)
+);
+
+create sequence seq_no increment by 1 start with 1;
+
+insert into jeu_member values(1, '김형록', '010-1111-0000', '광주과역시 광산구', '남');
+insert into jeu_member values(2, '김초록', '010-1111-0000', '광주광역시 북구', '남');
+insert into jeu_member values(3, '김오로록', '010-1111-0000', '광주광역시 남구', '여');
+insert into jeu_member values(4, '김되도록', '010-1111-0000', '광주광역시 동구', '여');
+insert into jeu_member values(5, '김방명록', '010-1111-0000', '광주광역시 서구', '여');
+insert into jeu_member values(6, '김왕조실록', '010-1111-0000', '광주광역시 광산구','남');
+
+CREATE TABLE jeu_money(
+custno number(3) not null,
+saleno number(8) not null,
+price number(8),
+sell_date date,
+primary key(custno, saleno)
+);
+
+insert into jeu_money values(1, 101, 21500, '2021-12-12');
+insert into jeu_money values(1, 102, 25500, '2021-12-14');
+insert into jeu_money values(1, 103, 22500, '2021-12-15');
+insert into jeu_money values(1, 104, 21700, '2021-12-16');
+insert into jeu_money values(1, 105, 31500, '2021-12-13');
+insert into jeu_money values(1, 106, 91500, '2021-12-11');
+
+
+select m1.custno, custname, grade, sum(price)
+from MEMBER_TBL_02 m1 inner join money_tbl_02 m2
+on m1.custno=m2.custno
+group by m1.custno, m1.custname, m1.grade order by sum(price) desc;
+
+---
+select * from movie_tbl_02;
+select * from ticketing_tbl_02;
+
+select max(movie)+1 movie
+from movie_tbl_02;
+
+select me.movie, me.moviename, sum(mo.price)
+from movie_tbl_02 me, ticketing_tbl_02 mo
+where me.movie = mo.movie
+group by me.movie, me.moviename
+order by sum(mo.price) desc;
+
+commit;

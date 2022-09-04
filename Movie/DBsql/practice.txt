@@ -1,0 +1,34 @@
+create table userlist(
+id number(10) not null,
+name varchar2(10),
+call varchar(40),
+address varchar(100),
+create_date varchar(10),
+class varchar(10),
+place number(4),
+primary key(id)
+);
+
+create table success(
+idx number(6) not null,
+your varchar2(10),
+primary key(idx)
+);
+
+ 
+insert into success values(1,'일반');
+insert into success values(2,'VIP');
+insert into success values(3,'직원');
+
+insert into userlist values(100001,'김행복','010-1111-2222','서울 동대문구 휘경1동','2015-12-02','2',01);
+insert into userlist values(100002,'이축복','010-1111-3333','서울 동대문구 휘경2동','2015-12-06','1',01);
+insert into userlist values(100003,'장믿음','010-1111-4444','울릉군 울릉읍 독도1리','2015-10-01','1',30);
+insert into userlist values(100004,'최사랑','010-1111-5555','울릉군 울릉읍 독도2리','2015-11-13','2',30);
+insert into userlist values(100005,'진평화','010-1111-6666','제주도 제주시 외나무골','2015-12-25','1',60);
+insert into userlist values(100006,'차공단','010-1111-7777','제주도 제주시 감나무골','2015-12-11','3',60);
+insert into userlist values(100007,'ㅁㅁㅁ','010-1234-1234','글','2021-01-01','2',33);
+insert into userlist values(100008,'ㅇㅇㅇ','010-0000-1111','몰라용','2021-11-11','1',01);
+
+
+
+SELECT id,name,call,address,create_date,S.your,place FROM userlist U,success S WHERE U.class =S.idx ORDER BY id;
