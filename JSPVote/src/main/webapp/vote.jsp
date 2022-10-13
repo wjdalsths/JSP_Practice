@@ -47,7 +47,10 @@
 			</tr>
 			<tr>
 				<th>유권자확인</th>
-				<td><input type="radio" name="vote" value="Y">확인 &nbsp;&nbsp;<input type="radio" name="vote" value="N">미확인</td>
+				<td>
+				<input type="radio" name="vote" value="Y">확인 &nbsp;&nbsp;
+				<input type="radio" name="vote" value="N">미확인
+				</td>
 			</tr>
 			<tr >
 				<td colspan="2" style="text-align: center;">
