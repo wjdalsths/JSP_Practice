@@ -49,7 +49,7 @@
 			case "C": grade = "직원"; break;
 			}
 			
-	%> 
+	%>
 	
 	<tr>
 		<td><a href="modify.jsp?mod_custno=<%=rs.getString(1)%>"><%=rs.getString(1) %></a></td>
